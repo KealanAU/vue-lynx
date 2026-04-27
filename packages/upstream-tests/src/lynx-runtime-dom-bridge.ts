@@ -577,10 +577,10 @@ export {
   onBeforeUpdate,
   onUpdated,
   Fragment,
-  createApp,
 } from '@vue/runtime-core';
 
 export {
+  createApp,
   vShow,
   vModelText,
   vModelCheckbox,

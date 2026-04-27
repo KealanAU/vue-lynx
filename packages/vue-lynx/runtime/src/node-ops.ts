@@ -86,6 +86,12 @@ function parseEventProp(key: string): EventSpec | null {
   if (key.startsWith('global-catch')) {
     return { type: 'catchGlobalEvent', name: key.slice('global-catch'.length) };
   }
+  if (key.startsWith('capture-catch')) {
+    return { type: 'capture-catch', name: key.slice('capture-catch'.length) };
+  }
+  if (key.startsWith('capture-bind')) {
+    return { type: 'capture-bind', name: key.slice('capture-bind'.length) };
+  }
   if (key.startsWith('catch')) {
     return { type: 'catchEvent', name: key.slice('catch'.length) };
   }
@@ -95,8 +101,11 @@ function parseEventProp(key: string): EventSpec | null {
   if (/^on[A-Z]/.test(key)) {
     // onTap → { type: 'bindEvent', name: 'tap' }
     // onTouchStart → { type: 'bindEvent', name: 'touchStart' }
-    const name = key.slice(2, 3).toLowerCase() + key.slice(3);
-    return { type: 'bindEvent', name };
+    // onTapCapture → { type: 'capture-bind', name: 'tap' } (@tap.capture)
+    const isCapture = key.endsWith('Capture');
+    const base = isCapture ? key.slice(0, -7) : key;
+    const name = base.slice(2, 3).toLowerCase() + base.slice(3);
+    return { type: isCapture ? 'capture-bind' : 'bindEvent', name };
   }
   return null;
 }

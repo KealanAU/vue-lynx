@@ -65,6 +65,90 @@ describe('events', () => {
     expect(container.querySelector('text')!.textContent).toBe('1');
   });
 
+  it('fires onTapCapture handler (@tap.capture Vue syntax)', async () => {
+    const count = ref(0);
+
+    const Comp = defineComponent({
+      setup() {
+        return () =>
+          h(
+            'view',
+            {
+              onTapCapture: () => {
+                count.value++;
+              },
+            },
+            [h('text', null, `${count.value}`)],
+          );
+      },
+    });
+
+    const { container } = render(Comp);
+    expect(container.querySelector('text')!.textContent).toBe('0');
+
+    fireEvent.tap(container.querySelector('view')!, { eventType: 'capture-bind' });
+    await nextTick();
+    await nextTick();
+
+    expect(container.querySelector('text')!.textContent).toBe('1');
+  });
+
+  it('fires capture-bindtap handler (raw Lynx prop syntax)', async () => {
+    const count = ref(0);
+
+    const Comp = defineComponent({
+      setup() {
+        return () =>
+          h(
+            'view',
+            {
+              'capture-bindtap': () => {
+                count.value++;
+              },
+            },
+            [h('text', null, `${count.value}`)],
+          );
+      },
+    });
+
+    const { container } = render(Comp);
+    expect(container.querySelector('text')!.textContent).toBe('0');
+
+    fireEvent.tap(container.querySelector('view')!, { eventType: 'capture-bind' });
+    await nextTick();
+    await nextTick();
+
+    expect(container.querySelector('text')!.textContent).toBe('1');
+  });
+
+  it('fires capture-catchtap handler (raw Lynx prop syntax)', async () => {
+    const count = ref(0);
+
+    const Comp = defineComponent({
+      setup() {
+        return () =>
+          h(
+            'view',
+            {
+              'capture-catchtap': () => {
+                count.value++;
+              },
+            },
+            [h('text', null, `${count.value}`)],
+          );
+      },
+    });
+
+    const { container } = render(Comp);
+    expect(container.querySelector('text')!.textContent).toBe('0');
+
+    fireEvent.tap(container.querySelector('view')!, { eventType: 'capture-catch' });
+    await nextTick();
+    await nextTick();
+
+    expect(container.querySelector('text')!.textContent).toBe('1');
+  });
+
   it('handles handler updates on re-render', async () => {
     const results: string[] = [];
     const toggle = ref(false);

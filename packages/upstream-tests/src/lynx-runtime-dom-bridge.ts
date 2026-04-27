@@ -139,8 +139,10 @@ function parseEventKey(key: string): {
  */
 function vueKeyToPapiKey(key: string): string | null {
   if (/^on[A-Z]/.test(key)) {
-    const name = key.slice(2, 3).toLowerCase() + key.slice(3);
-    return `bindEvent:${name}`;
+    const isCapture = key.endsWith('Capture');
+    const base = isCapture ? key.slice(0, -7) : key;
+    const name = base.slice(2, 3).toLowerCase() + base.slice(3);
+    return isCapture ? `capture-bind:${name}` : `bindEvent:${name}`;
   }
   return null;
 }

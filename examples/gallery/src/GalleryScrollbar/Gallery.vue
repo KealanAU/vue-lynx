@@ -38,6 +38,7 @@ onMounted(() => {
       list-type="waterfall"
       :column-count="2"
       scroll-orientation="vertical"
+      custom-list-name="list-container"
       @scroll="onScroll"
       :scroll-event-throttle="0"
     >

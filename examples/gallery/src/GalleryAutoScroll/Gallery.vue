@@ -29,6 +29,7 @@ onMounted(() => {
       list-type="waterfall"
       :column-count="2"
       scroll-orientation="vertical"
+      custom-list-name="list-container"
     >
       <list-item
         v-for="(pic, i) in furnituresPictures"

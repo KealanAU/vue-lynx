@@ -1,7 +1,7 @@
-import { defineConfig } from '@lynx-js/rspeedy';
+import { defineExampleConfig } from '../defineExampleConfig.ts';
 import { pluginVueLynx } from 'vue-lynx/plugin';
 
-export default defineConfig({
+export default defineExampleConfig({
   environments: {
     web: {},
     lynx: {},

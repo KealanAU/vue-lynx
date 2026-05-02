@@ -1,11 +1,11 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from '@lynx-js/rspeedy';
+import { defineExampleConfig } from '../defineExampleConfig.ts';
 import { pluginVueLynx } from 'vue-lynx/plugin';
 
 const exampleName = path.basename(path.dirname(fileURLToPath(import.meta.url)));
 
-export default defineConfig({
+export default defineExampleConfig({
   environments: {
     lynx: {},
     web: {},

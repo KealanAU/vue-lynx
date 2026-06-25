@@ -10,7 +10,7 @@
  * each operation using Lynx PAPI.
  */
 
-import { OP } from 'vue-lynx/internal/ops';
+import { OP, OP_ARITY, OP_NAME, type OpCode } from 'vue-lynx/internal/ops';
 
 import {
   elements,
@@ -83,7 +83,9 @@ export function applyOps(ops: unknown[]): void {
   let i = 0;
 
   while (i < len) {
-    const code = ops[i++] as number;
+    const code = ops[i++] as OpCode;
+    // Cursor position of the first payload arg, used by the dev arity check.
+    const argStart = i;
 
     switch (code) {
       case OP.CREATE: {
@@ -256,10 +258,37 @@ export function applyOps(ops: unknown[]): void {
         break;
       }
 
-      default:
-        // Unknown op – skip (future-compat)
+      default: {
+        // Unknown opcode. BG and MT ship from the same internal package and
+        // version together, so this can only mean the cursor has drifted — the
+        // arity is unknown, so we can't safely skip just this op. Abort the rest
+        // of the batch rather than interpreting following payload as opcodes.
+        if (__DEV__) {
+          console.error(
+            `[vue-lynx] applyOps: unknown op code ${String(code)} at index ${argStart - 1}; ` +
+              'aborting remainder of batch to avoid cursor misalignment.',
+          );
+        }
+        i = len;
         break;
+      }
     }
+
+    if (__DEV__) {
+      const expected = OP_ARITY[code];
+      if (expected !== undefined && i - argStart !== expected) {
+        console.error(
+          `[vue-lynx] applyOps: op ${OP_NAME[code]} read ${i - argStart} args, ` +
+            `schema expects ${expected} — BG/MT protocol drift.`,
+        );
+      }
+    }
+  }
+
+  if (__DEV__ && i !== len) {
+    console.error(
+      `[vue-lynx] applyOps: consumed ${i} of ${len} buffer entries — BG/MT protocol drift.`,
+    );
   }
 
   flushListUpdates();

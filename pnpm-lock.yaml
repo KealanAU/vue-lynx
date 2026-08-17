@@ -853,6 +853,9 @@ importers:
       '@rspress/plugin-llms':
         specifier: ^2.0.5
         version: 2.0.5(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.47.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))(supports-color@8.1.1)
+      '@rspress/plugin-rss':
+        specifier: ^2.0.5
+        version: 2.0.19(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.47.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))
       qrcode.react:
         specifier: ^4.2.0
         version: 4.2.0(react@19.2.4)
@@ -2400,6 +2403,12 @@ packages:
     peerDependencies:
       '@rspress/core': ^2.0.5
 
+  '@rspress/plugin-rss@2.0.19':
+    resolution: {integrity: sha512-PgZzNLfYnDkkxWZYEVvCAt9WtjHl8W6hU/i8nnLaPruIDl+7v56Q2PcqyBz0S+AfstLmDBsAk1rK9FGT68ej2w==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      '@rspress/core': ^2.0.10
+
   '@rspress/shared@2.0.5':
     resolution: {integrity: sha512-Wdhh+VjU8zJWoVLhv9KJTRAZQ4X2V/Z81Lo2D0hQsa0Kj5F3EaxlMt5/dhX7DoflqNuZPZk/e7CSUB+gO/Umlg==}
 
@@ -2712,9 +2721,6 @@ packages:
     peerDependencies:
       '@tiptap/core': ^3.20.1
       '@tiptap/pm': ^3.20.1
-
-  '@tybys/wasm-util@0.10.1':
-    resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -3849,6 +3855,10 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  feed@5.2.1:
+    resolution: {integrity: sha512-jTynzYPWs9ALjro0GW8j7sv9y7cJBeOdD4Y88kVqYy/eyusIX3g+499JiTDIlD9Ge/unebx57T4Uzo6vpYvMtA==}
+    engines: {node: '>=20', pnpm: '>=10'}
 
   filesize@10.1.6:
     resolution: {integrity: sha512-sJslQKU2uM33qH5nqewAwVB2QgR6w1aMNsYUp3aN5rMRyXEwJGmZvaWzeJFNTOXWlHQyBFCWrdj3fV/fsTOX8w==}
@@ -6470,6 +6480,10 @@ packages:
       utf-8-validate:
         optional: true
 
+  xml-js@1.6.11:
+    resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
+    hasBin: true
+
   xml-name-validator@5.0.0:
     resolution: {integrity: sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==}
     engines: {node: '>=18'}
@@ -7402,7 +7416,7 @@ snapshots:
     dependencies:
       '@emnapi/core': 1.9.0
       '@emnapi/runtime': 1.9.0
-      '@tybys/wasm-util': 0.10.1
+      '@tybys/wasm-util': 0.10.3
     optional: true
 
   '@napi-rs/wasm-runtime@1.2.2(@emnapi/core@1.9.0)(@emnapi/runtime@1.9.0)':
@@ -7592,8 +7606,8 @@ snapshots:
 
   '@rsbuild/core@2.0.0-beta.6(core-js@3.47.0)':
     dependencies:
-      '@rspack/core': 2.0.0-beta.3(@swc/helpers@0.5.19)
-      '@swc/helpers': 0.5.19
+      '@rspack/core': 2.0.0-beta.3(@swc/helpers@0.5.23)
+      '@swc/helpers': 0.5.23
     optionalDependencies:
       core-js: 3.47.0
     transitivePeerDependencies:
@@ -8259,6 +8273,13 @@ snapshots:
       '@rspack/binding': 2.0.0-beta.3
     optionalDependencies:
       '@swc/helpers': 0.5.19
+    optional: true
+
+  '@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23)':
+    dependencies:
+      '@rspack/binding': 2.0.0-beta.3
+    optionalDependencies:
+      '@swc/helpers': 0.5.23
 
   '@rspack/lite-tapable@1.0.1': {}
 
@@ -8388,6 +8409,11 @@ snapshots:
       unist-util-visit: 5.1.0
     transitivePeerDependencies:
       - supports-color
+
+  '@rspress/plugin-rss@2.0.19(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.47.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))':
+    dependencies:
+      '@rspress/core': 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.47.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1)
+      feed: 5.2.1
 
   '@rspress/shared@2.0.5(core-js@3.47.0)':
     dependencies:
@@ -8790,11 +8816,6 @@ snapshots:
     dependencies:
       '@tiptap/core': 3.20.1(@tiptap/pm@3.20.1)
       '@tiptap/pm': 3.20.1
-
-  '@tybys/wasm-util@0.10.1':
-    dependencies:
-      tslib: 2.8.1
-    optional: true
 
   '@tybys/wasm-util@0.10.3':
     dependencies:
@@ -10036,6 +10057,10 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.3):
     optionalDependencies:
       picomatch: 4.0.3
+
+  feed@5.2.1:
+    dependencies:
+      xml-js: 1.6.11
 
   filesize@10.1.6: {}
 
@@ -13236,6 +13261,10 @@ snapshots:
   ws@8.18.3: {}
 
   ws@8.19.0: {}
+
+  xml-js@1.6.11:
+    dependencies:
+      sax: 1.5.0
 
   xml-name-validator@5.0.0: {}
 
